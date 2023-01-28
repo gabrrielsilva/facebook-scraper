@@ -1,44 +1,42 @@
-import puppeteer, { Page } from 'puppeteer';
+import dotenv from 'dotenv';
+import puppeteer from 'puppeteer';
+import qrCode from 'qrcode-terminal';
+import { Client } from 'whatsapp-web.js';
+import { extractData } from './extractData';
+import { goToFacebookGroup } from './goToFacebookGroup';
+import { autoScroll } from './helpers/autoScroll';
+import { loginInFacebook } from './loginInFacebook';
+import { delay } from './utils/delay';
+dotenv.config();
 
-(async () => {
-  const browser = await puppeteer.launch({ headless: true });
-  const page = await browser.newPage()
-  await page.goto('https://www.facebook.com/groups/756215944466744/posts', { waitUntil: 'networkidle2' });
-  await autoScroll(page);
+const client = new Client({});
+client.on('qr', qr => qrCode.generate(qr, { small: true }));
+client.on('ready', async () => {
+  console.log('Client is ready!')
+  await import('./checkIncomingMessageChatId');
+});
+client.initialize();
 
-  console.log('scrapping...')
+export async function run (keywords: string[]) {
+  client.sendMessage(<string>process.env.CHAT_ID, '*Bot:* Isso pode demorar alguns minutos...');
   
-  setTimeout(async () => {
-    const data = await page.evaluate(() => {
-      const ads: string[] = [];
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+  const context = browser.defaultBrowserContext();
+  context.overridePermissions('https://facebook.com', []);
+  context.overridePermissions(<string>process.env.FACEBOOK_GROUP_ID, []);
 
-      const adsData = document.querySelectorAll('div [class = "x11i5rnm xat24cr x1mh8g0r x1vvkbs xdj266r x126k92a"]');
-      adsData.forEach((el) => {        
-        ads.push((<HTMLElement>el).innerText as string);
-      })
+  await loginInFacebook(page);
+  await delay(4000);
+  await goToFacebookGroup(page);
+  await autoScroll(page);
+  const data = await extractData(page, keywords);  
+  
+  for await (const ad of data) {
+    client.sendMessage(<string>process.env.CHAT_ID, `*Bot:* ${ad.description}\n\n*Vendedor:* ${ad.linkToProfile}`);
+  }
     
-      return ads;
-    })
-
-    console.log(data);
-    await browser.close();
-  }, 4000)
-})()
-
-async function autoScroll(page: Page){
-  await page.evaluate(async () => {
-    await new Promise((resolve) => {
-      let totalHeight = 0;
-      const distance = 100;
-      const timer = setInterval(() => {
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-
-        if (totalHeight >= window.innerHeight * 50) {
-          clearInterval(timer);
-          resolve({});
-        }
-      }, 100);
-    });
-  });
+  await browser.close();
 }
+
+export { client };
