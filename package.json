@@ -1,0 +1,21 @@
+{
+  "name": "facebook-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsup src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "tsup": "^6.5.0",
+    "tsx": "^3.12.2",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "puppeteer": "^19.6.2"
+  }
+}
