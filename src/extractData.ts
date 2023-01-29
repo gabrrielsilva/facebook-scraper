@@ -1,6 +1,7 @@
 import { Page } from 'puppeteer';
+import { registerAd } from './registerAd';
 
-export async function extractData(page: Page, keywords: string[]) {
+export async function extractData(page: Page, keywords: string[], existingData: { description: string }[]) {
   const data = await page.evaluate(async (keywords) => {
     const ads: { description: string, linkToProfile: string }[] = [];
 
@@ -9,13 +10,14 @@ export async function extractData(page: Page, keywords: string[]) {
     
     for (let i = 0; i < adsData.length; i++) {
       const description = adsData[i].innerText;
-      const seller = `https://facebook.com/${linkToProfile[i].href.split('/')[6]}`
+      const seller = `https://facebook.com/${linkToProfile[i].href.split('/')[6]}`;
       
       for await (const keyword of keywords) {
         const formattedKeyword = keyword.toLowerCase();
         const formattedDescription = description.toLowerCase();
 
-        if (formattedDescription.includes(formattedKeyword)) {
+        if (!existingData.includes({ description: formattedDescription }) && formattedDescription.includes(formattedKeyword)) {
+          await registerAd(formattedDescription);
           ads.push({ description, linkToProfile: seller });
         }
       }

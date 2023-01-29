@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer';
 import qrCode from 'qrcode-terminal';
 import { Client } from 'whatsapp-web.js';
 import { extractData } from './extractData';
+import { getExistingData } from './getExistingData';
 import { goToFacebookGroup } from './goToFacebookGroup';
 import { autoScroll } from './helpers/autoScroll';
 import { loginInFacebook } from './loginInFacebook';
@@ -28,13 +29,14 @@ export async function run (keywords: string[]) {
   await delay(4000);
   await goToFacebookGroup(page);
   await autoScroll(page);
-  const data = await extractData(page, keywords);  
+  const existingData = await getExistingData();
+  const data = await extractData(page, keywords, existingData);
   
   for await (const ad of data) {
     client.sendMessage(<string>process.env.CHAT_ID, `*Bot:* ${ad.description}\n\n*Vendedor:* ${ad.linkToProfile}`);
   }
-    
-  await browser.close();
+  
+  // await browser.close();
 }
 
 export { client };
