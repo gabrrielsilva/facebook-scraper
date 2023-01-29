@@ -6,15 +6,14 @@ import { extractData } from './extractData';
 import { goToFacebookGroup } from './goToFacebookGroup';
 import { autoScroll } from './helpers/autoScroll';
 import { loginInFacebook } from './loginInFacebook';
+import { overridePermissions } from './overridePermissions';
 import { delay } from './utils/delay';
 dotenv.config();
 
 const client = new Client({});
+
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
-client.on('ready', async () => {
-  console.log('Client is ready!')
-  await import('./checkIncomingMessageChatId');
-});
+client.on('ready', async () => await import('./checkIncomingMessageChatId'));
 client.initialize();
 
 export async function run (keywords: string[]) {
@@ -23,9 +22,8 @@ export async function run (keywords: string[]) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
-  context.overridePermissions('https://facebook.com', []);
-  context.overridePermissions(<string>process.env.FACEBOOK_GROUP_ID, []);
-
+  
+  await overridePermissions(context);
   await loginInFacebook(page);
   await delay(4000);
   await goToFacebookGroup(page);
@@ -40,3 +38,4 @@ export async function run (keywords: string[]) {
 }
 
 export { client };
+
