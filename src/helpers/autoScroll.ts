@@ -9,7 +9,7 @@ export async function autoScroll(page: Page){
         window.scrollBy(0, distance);
         totalHeight += distance;
 
-        if (totalHeight >= window.innerHeight * 50) {
+        if (totalHeight >= window.innerHeight * 15) {
           clearInterval(timer);
           resolve({});
         }

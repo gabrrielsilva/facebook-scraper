@@ -8,6 +8,5 @@ datasource db {
 }
 
 model Ad {
-  id          String  @id     @default(uuid())
-  description String  @unique
+  id String @id     
 }
