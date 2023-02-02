@@ -31,7 +31,7 @@ client.initialize();
 
 let groupIndex = 0;
 export async function run (keywords: string[]) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
 
