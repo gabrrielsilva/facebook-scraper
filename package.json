@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "start": "yarn run build && node dist/main.js",
+    "start": "node dist/main.js",
     "build": "tsup src"
   },
   "license": "MIT",
