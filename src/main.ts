@@ -19,7 +19,11 @@ const GROUPS = [
   process.env.FACEBOOK_GROUP_URL_4,
 ]
 
-const client = new Client({});
+const client = new Client({
+  puppeteer: {
+    args: ['--no-sandbox','--disable-setuid-sandbox']
+  }
+});
 
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
 client.on('ready', async () => { await import('./checkIncomingMessageChatId') });
