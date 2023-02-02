@@ -14,36 +14,26 @@ dotenv.config();
 
 const GROUPS = [
   process.env.FACEBOOK_GROUP_URL_1,
-  process.env.FACEBOOK_GROUP_URL_1,
   process.env.FACEBOOK_GROUP_URL_2,
   process.env.FACEBOOK_GROUP_URL_3,
-  process.env.FACEBOOK_GROUP_URL_1,
-  process.env.FACEBOOK_GROUP_URL_2,
-  process.env.FACEBOOK_GROUP_URL_3,
-  process.env.FACEBOOK_GROUP_URL_1,
-  process.env.FACEBOOK_GROUP_URL_2,
+  process.env.FACEBOOK_GROUP_URL_4,
 ]
 
 const client = new Client({});
 
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
-client.on('ready', async () => {
-  run(['shape'])
-  await import('./checkIncomingMessageChatId')
-});
+client.on('ready', async () => { await import('./checkIncomingMessageChatId'); run(['vendo']) });
 client.initialize();
 
 let groupIndex = 0;
-
-export async function run (keywords: string[]) {  
-  const browser = await puppeteer.launch({ headless: false });
+export async function run (keywords: string[]) {
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
 
   async function makeScraping(keywords: string[]) {
     await overridePermissions(context);
     await verifyAuthentication(page);
-    await delay(3000);
     await goToFacebookGroup(page, <string>GROUPS[groupIndex]);
     await autoScroll(page);
     const existingData = await getExistingData();
@@ -53,11 +43,9 @@ export async function run (keywords: string[]) {
       makeScraping(keywords);
     }
     await registerAds(data);
-
     for await (const ad of data) {
-      client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}`);
+      client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}\n\n*Postado:* ${ad.timestamp}`);
     }
-    
     groupIndex++;
     if (groupIndex === GROUPS.length - 1) groupIndex = 0;
     await delay(1000 * 60 * 1); //1 min
