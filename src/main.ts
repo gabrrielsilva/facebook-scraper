@@ -27,7 +27,7 @@ client.initialize();
 
 let groupIndex = 0;
 export async function run (keywords: string[]) {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
 
