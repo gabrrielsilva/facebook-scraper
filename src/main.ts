@@ -22,12 +22,12 @@ const GROUPS = [
 const client = new Client({});
 
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
-client.on('ready', async () => { await import('./checkIncomingMessageChatId'); run(['vendo']) });
+client.on('ready', async () => { await import('./checkIncomingMessageChatId') });
 client.initialize();
 
 let groupIndex = 0;
 export async function run (keywords: string[]) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
 
@@ -44,7 +44,7 @@ export async function run (keywords: string[]) {
     }
     await registerAds(data);
     for await (const ad of data) {
-      client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}\n\n*Postado:* ${ad.timestamp}`);
+      client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}`);
     }
     groupIndex++;
     if (groupIndex === GROUPS.length - 1) groupIndex = 0;
