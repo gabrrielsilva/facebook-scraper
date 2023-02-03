@@ -1,11 +1,11 @@
 {
   "name": "facebook-scraper",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start": "node dist/main.js",
-    "build": "tsup src ./dist"
+    "build": "tsup src"
   },
   "license": "MIT",
   "devDependencies": {
