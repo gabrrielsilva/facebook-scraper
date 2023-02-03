@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start": "node dist/main.js",
-    "build": "tsup src"
+    "build": "tsc"
   },
   "license": "MIT",
   "devDependencies": {
