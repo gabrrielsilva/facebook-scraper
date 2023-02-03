@@ -22,7 +22,7 @@ const GROUPS = [
 
 const client = new Client({ puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox'] }});
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
-client.on('ready', async () => {await import('./checkIncomingMessageChatId'); run(['butter', '30', '34', '35', 'OFF', 'vendo']) });
+client.on('ready', async () => {await import('./checkIncomingMessageChatId'); run(['butter', '30%', '31%', '32%', '33%', '34%', '35%', 'OFF']) });
 client.initialize();
 
 let browser: Browser;
