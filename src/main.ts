@@ -22,7 +22,10 @@ const GROUPS = [
 
 const client = new Client({ puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox'] }});
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
-client.on('ready', async () => {await import('./checkIncomingMessageChatId'); run(['butter', '30%', '31%', '32%', '33%', '34%', '35%', 'OFF']) });
+client.on('ready', async () => {
+  await import('./checkIncomingMessageChatId');
+  run(['30% OFF', '33% OFF', '34% OFF', '35% OFF', '36% OFF', '37% OFF', '38% OFF', '39% OFF', '40% OFF', '41% OFF', '42% OFF', '43% OFF', '44% OFF', '45% OFF', 'FADE', 'BUTTERFLY']);
+});
 client.initialize();
 
 let browser: Browser;
@@ -30,12 +33,16 @@ let page: Page;
 let context: BrowserContext;
 
 (async () => {
-  browser = await puppeteer.launch({ headless: true,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  console.log(1);
+  
+  browser = await puppeteer.launch({ headless: false,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   page = await browser.newPage();
   context = browser.defaultBrowserContext();
 })()
 
 export async function run (keywords: string[]) {
+  console.log(2);
+
   await overridePermissions(context);
   await verifyAuthentication(page);
   await goToFacebookGroup(page, GROUPS[groupIndex]);
