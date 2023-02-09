@@ -6,7 +6,8 @@
     "dev": "tsx watch src/main.ts",
     "start:dev": "npm run build && node dist/main.js",
     "start": "node dist/main.js",
-    "build": "tsup src"
+    "build": "tsup src",
+    "build:digitalocean": "npm install && npm run build && npm start"
   },
   "license": "MIT",
   "devDependencies": {
