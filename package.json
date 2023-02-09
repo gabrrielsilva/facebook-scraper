@@ -7,7 +7,7 @@
     "start:dev": "npm run build && node dist/main.js",
     "start": "node dist/main.js",
     "build": "tsup src",
-    "build:digitalocean": "npm install && npm run build && npm start"
+    "build:digitalocean": "yarn install && yarn run build && yarn run start"
   },
   "license": "MIT",
   "devDependencies": {
