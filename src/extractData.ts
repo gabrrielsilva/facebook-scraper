@@ -7,7 +7,7 @@ export async function extractData(page: Page, keywords: string[], existingData: 
     try {
       await link.evaluate(e => e.scrollIntoView({ block: 'center', inline: 'center' }));
       await link.hover();
-      await delay(2000);
+      await delay(3000);
     } catch {
       console.error();
     }
@@ -33,7 +33,7 @@ export async function extractData(page: Page, keywords: string[], existingData: 
           && description?.innerText?.toLowerCase().replace(/ /g, '').includes(keyword.toLowerCase().replace(/ /g, ''))
           && !ads.find(ad => ad.description === description?.innerText)
         ) {          
-          ads.push({ description: description?.innerText || 'Sem descrição', linkToAd: <string>linkToAd === groupUrl.split('?')[0] ? linkToAd2 : linkToAd });
+          ads.push({ description: description?.innerText || 'Sem descrição', linkToAd: (<string>linkToAd === groupUrl.split('?')[0] ? linkToAd2 : linkToAd) || groupUrl });
         }
       }
     }
