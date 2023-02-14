@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import puppeteer, { Browser, BrowserContext, Page } from 'puppeteer';
 import qrCode from 'qrcode-terminal';
-import { Client } from 'whatsapp-web.js';
+import { Client, LocalAuth } from 'whatsapp-web.js';
 import { extractData } from './extractData';
 import { getExistingData } from './getExistingData';
 import { goToFacebookGroup } from './goToFacebookGroup';
@@ -20,7 +20,7 @@ const GROUPS = [
   <string>process.env.FACEBOOK_GROUP_URL_4,
 ]
 
-const client = new Client({ puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox'] }});
+const client = new Client({ puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox'], handleSIGINT: false }, authStrategy: new LocalAuth() });
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
 client.on('ready', async () => {
   await import('./checkIncomingMessageChatId');
