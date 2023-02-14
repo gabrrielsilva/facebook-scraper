@@ -55,7 +55,7 @@ export async function run (keywords: string[]) {
   };
   await registerAds(data);
   for await (const ad of data) {
-    client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}`);
+    client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}\n\n*Vendedor:* ${ad.seller}`);
   }
   groupIndex++;
   if (groupIndex === GROUPS.length - 1) groupIndex = 0;
