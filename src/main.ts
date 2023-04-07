@@ -33,15 +33,14 @@ let page: Page;
 let context: BrowserContext;
 
 (async () => {
-  console.log(1);
-  
+  console.log('Iniciar o browser');
   browser = await puppeteer.launch({ headless: true,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   page = await browser.newPage();
   context = browser.defaultBrowserContext();
 })()
 
 export async function run (keywords: string[]) {
-  console.log(2);
+  console.log('Buscando por anúncios');
 
   await overridePermissions(context);
   await verifyAuthentication(page);
