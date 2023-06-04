@@ -34,15 +34,13 @@ let context: BrowserContext;
 
 (async () => {
   console.log('Iniciar o browser');
-  browser = await puppeteer.launch({ headless: true,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  browser = await puppeteer.launch({ headless: false,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   page = await browser.newPage();
   context = browser.defaultBrowserContext();
 })()
 
 export async function run (keywords: string[]) {
   console.log('Buscando por anúncios');
-  client.sendMessage(<string>process.env.CHAT_ID, 'Mensagem teste')
-
   await overridePermissions(context);
   await verifyAuthentication(page);
   await goToFacebookGroup(page, GROUPS[groupIndex]);
@@ -53,6 +51,7 @@ export async function run (keywords: string[]) {
     await delay(1000 * 30); //30s
     run(keywords);
   };
+  console.log(data);
   await registerAds(data);
   for await (const ad of data) {
     client.sendMessage(<string>process.env.CHAT_ID, `*Descrição:* ${ad.description}\n\n*Anúncio:* ${ad.linkToAd}\n\n*Vendedor:* ${ad.seller}`);
