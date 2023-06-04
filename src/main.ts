@@ -41,6 +41,7 @@ let context: BrowserContext;
 
 export async function run (keywords: string[]) {
   console.log('Buscando por anúncios');
+  client.sendMessage(<string>process.env.CHAT_ID, 'Mensagem teste')
 
   await overridePermissions(context);
   await verifyAuthentication(page);

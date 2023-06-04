@@ -22,6 +22,6 @@
     "dotenv": "^16.0.3",
     "puppeteer": "^19.6.2",
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.19.4"
+    "whatsapp-web.js": "github:tofers/whatsapp-web.js#upd-newIdV2"
   }
 }
