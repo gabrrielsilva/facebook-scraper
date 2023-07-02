@@ -48,7 +48,7 @@ export async function run (keywords: string[]) {
   const existingData = await getExistingData();
   const data = await extractData(page, keywords, existingData, GROUPS[groupIndex]);
   if (!data) {
-    await delay(1000 * 30); //30s
+    await delay(1000 * 90); //90s
     run(keywords);
   };
   console.log(data);
@@ -58,7 +58,7 @@ export async function run (keywords: string[]) {
   }
   groupIndex++;
   if (groupIndex === GROUPS.length - 1) groupIndex = 0;
-  await delay(1000 * 30); //30s
+  await delay(1000 * 90); //90s
   run(keywords);
 }
 
