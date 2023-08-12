@@ -18,6 +18,7 @@ const GROUPS = [
   <string>process.env.FACEBOOK_GROUP_URL_2,
   <string>process.env.FACEBOOK_GROUP_URL_3,
   <string>process.env.FACEBOOK_GROUP_URL_4,
+  <string>process.env.FACEBOOK_GROUP_URL_5,
 ]
 
 const client = new Client({ puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox'], handleSIGINT: false }, authStrategy: new LocalAuth() });
