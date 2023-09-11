@@ -23,13 +23,11 @@ const GROUPS = [
 
 const client = new Client({ puppeteer: { args: ['--no-sandbox','--disable-setuid-sandbox'], handleSIGINT: false }, authStrategy: new LocalAuth() });
 client.on('qr', qr => qrCode.generate(qr, { small: true }));
-client.on('qr', async () => {
-  setTimeout(async () => {
-    await import('./checkIncomingMessageChatId');
-    run(['33% OFF', '34% OFF', '35% OFF', '36% OFF', '37% OFF', '38% OFF', '39% OFF', '40% OFF', '41% OFF', '42% OFF', '43% OFF', '44% OFF', '45% OFF', 'FADE', 'BUTTERFLY']);
-  }, 10000)
+client.on('ready', async () => {
+  await import('./checkIncomingMessageChatId');
+  run(['33% OFF', '34% OFF', '35% OFF', '36% OFF', '37% OFF', '38% OFF', '39% OFF', '40% OFF', '41% OFF', '42% OFF', '43% OFF', '44% OFF', '45% OFF', 'FADE', 'BUTTERFLY']);
 });
-client.initialize();
+client.initialize().catch(e => console.log(e));
 
 let browser: Browser;
 let page: Page;
@@ -37,7 +35,7 @@ let context: BrowserContext;
 
 (async () => {
   console.log('Iniciar o browser');
-  browser = await puppeteer.launch({ headless: true,  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  browser = await puppeteer.launch({ headless: "new",  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   page = await browser.newPage();
   context = browser.defaultBrowserContext();
 })()

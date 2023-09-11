@@ -1,3 +1,5 @@
-2023/09/11-19:44:44.434 3a64 Reusing MANIFEST D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
-2023/09/11-19:44:44.435 3a64 Recovering log #3
-2023/09/11-19:44:44.436 3a64 Reusing old log D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb/000003.log 
+2023/09/11-20:21:13.763 1988 Reusing MANIFEST D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2023/09/11-20:21:13.764 1988 Recovering log #3
+2023/09/11-20:21:13.765 1988 Level-0 table #3: started
+2023/09/11-20:21:14.134 1988 Level-0 table #3: 20004 bytes OK
+2023/09/11-20:21:14.797 1988 Delete type=0 #3
