@@ -1,2 +1,3 @@
-2023/09/11-19:42:05.080 46cc Creating DB D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Session Storage since it was missing.
-2023/09/11-19:42:05.649 46cc Reusing MANIFEST D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
+2023/09/11-19:44:45.949 3e0c Reusing MANIFEST D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
+2023/09/11-19:44:46.256 3e0c Recovering log #3
+2023/09/11-19:44:46.256 3e0c Reusing old log D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Session Storage/000003.log 
