@@ -1,3 +1,2 @@
-2023/06/04-13:07:27.629 3d9c Reusing MANIFEST D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
-2023/06/04-13:07:27.630 3d9c Recovering log #4
-2023/06/04-13:07:27.631 3d9c Reusing old log D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb/000004.log 
+2023/09/11-19:42:01.414 17a8 Creating DB D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb since it was missing.
+2023/09/11-19:42:02.398 17a8 Reusing MANIFEST D:\development\projects\facebook-scraper\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
